@@ -12,11 +12,8 @@ library(xgboost)
 # LOAD DATA
 ##############################################################################
 
-load("01_data_preparation.RData")
-
-# Objects loaded:
-# train_df
-# test_df
+train_df <- readRDS("train_df.rds")
+test_df  <- readRDS("test_df.rds")
 
 ##############################################################################
 # 10% TUNING SAMPLE
@@ -311,25 +308,7 @@ cm_xgb <- confusionMatrix(
 print(cm_xgb)
 
 ##############################################################################
-# SAVE OUTPUTS
+# SAVE RESULTS
 ##############################################################################
-
-saveRDS(
-  xgb_final,
-  "xgb_final.rds"
-)
-
-saveRDS(
-  results_xgb,
-  "xgb_tuning_results.rds"
-)
-
-save(
-  pred_xgb,
-  xgb_prob,
-  cm_xgb,
-  best_row,
-  file="03_XGBoost_results.RData"
-)
 
 save.image(file = "XGB.RData")
