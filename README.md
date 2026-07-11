@@ -20,7 +20,6 @@ The analysis is based on anonymised inpatient administrative records from hospit
   - Socioeconomic and insurance status
   - Hospital organisational characteristics
 
-Due to data privacy restrictions, raw data are not publicly available. Only derived and anonymised analytical datasets are used in this repository.
 
 ### Outcome Variable: LOS Derivation and Categorisation
 - LOS was derived automatically from routinely collected administrative data, defined as the number of days between the date of admission and the date of discharge, death, or referral.
@@ -47,8 +46,10 @@ Due to data privacy restrictions, raw data are not publicly available. Only deri
 - The **2022 dataset** was randomly partitioned into **training (80%)** and **test (20%)** subsets, used for model development and internal evaluation, respectively.
 - The independent **2023 dataset** was reserved exclusively for **external temporal validation** and was not used at any stage of model development or hyperparameter tuning, ensuring an unbiased estimate of temporal generalisability.
 
-## Feature Engineering
+Due to data privacy restrictions, raw data are not publicly available. Only derived and anonymised analytical datasets are used in this repository.
 
+## Feature Engineering
+All feature engineering steps described below were implemented in R, primarily using base R and the dplyr/tidyr packages for data manipulation.
 ### 1. ICD-10 Classification
 - ICD-10 diagnosis codes were truncated to the 3-character level.
 - Codes were grouped into WHO ICD-10 chapters (I–XXII).
@@ -94,6 +95,8 @@ Hospital administrative data were merged using facility identifiers to enrich pa
 
 All hospital-level variables were transformed into binary indicator matrices for modelling.
 
+Due to data privacy restrictions, raw data are not publicly available. Only derived and anonymised analytical datasets are used in this repository. All data preparation, feature engineering, modelling, and evaluation were performed in R.
+
 ### Feature Encoding
 Categorical predictors were transformed into numeric representations using two strategies, selected according to the distributional characteristics of each variable:
 - **Target encoding:** categories mapped to the mean outcome value for that category, based on the training data distribution
@@ -131,6 +134,7 @@ The resulting dataset is a high-dimensional binary feature matrix designed for s
 | Artificial Neural Network (ANN) | `05_ANN_tuning.R` | Single-hidden-layer feedforward network (`nnet`); hyperparameters (hidden units, weight decay) tuned via 5-fold CV grid search on a 10% stratified subsample with centered/scaled inputs, final model refit on the full training set and evaluated on the held-out test set |
 | Multinomial Logistic Regression | `06_MultinomialLR.R` | Baseline multinomial logit model (`nnet::multinom`), fit directly on the full training set and evaluated on the held-out test set, used for interpretable benchmarking |
 
+All models were implemented in R: Random Forest (randomForest/ranger), XGBoost (xgboost), LightGBM (lightgbm), ANN (nnet), and Multinomial Logistic Regression (nnet::multinom).
 
 ## Evaluation Metrics
 
@@ -147,6 +151,17 @@ For each model and each LOS class, the following one-vs-rest metrics were comput
 
 - Top predictive features were identified using XGBoost gain-based importance scores.
 - For the multinomial logistic regression model, variable importance was approximated as the mean absolute coefficient across outcome classes.
+
+## Requirements
+
+This project is implemented entirely in **R** (version ≥ 4.2 recommended), using the following core packages:
+
+```r
+install.packages(c(
+  "caret", "xgboost", "lightgbm", "randomForest", "ranger",
+  "nnet", "pROC", "SHAPforxgboost", "shapviz", "dplyr", "tidyr"
+))
+```
 
 ## Repository Structure
 project/
