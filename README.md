@@ -6,11 +6,13 @@ This project develops and evaluates machine learning models to predict hospital 
 
 
 ## Data
+
 The analysis is based on anonymised inpatient administrative records from hospital admissions.
 
-- **Time period:** 2018–2022 (with extended processing for 2023 in supplementary pipeline)
+- **Time period:** 2018–2022 (with extended processing for 2023 in a supplementary pipeline)
 - **Unit of analysis:** Hospital admission episode
-- **Outcome variable:** Length of stay (LOS), modelled as a categorical class
+- **Outcome variable:** Length of stay (LOS), modelled as a categorical class (5 levels; see *Outcome Variable Categorisation* below)
+- **Cohort restriction:** The dataset was restricted to observations reimbursed under the Mandatory Social Health Insurance (MSHI) scheme
 - **Predictor domains:**
   - Demographic characteristics
   - Clinical diagnoses
@@ -20,7 +22,31 @@ The analysis is based on anonymised inpatient administrative records from hospit
 
 Due to data privacy restrictions, raw data are not publicly available. Only derived and anonymised analytical datasets are used in this repository.
 
+### Outcome Variable: LOS Derivation and Categorisation
+- LOS was derived automatically from routinely collected administrative data, defined as the number of days between the date of admission and the date of discharge, death, or referral.
+- No missing or implausible values were identified for the outcome variable, as the hospital registry system does not permit incomplete inpatient spells at the point of registration.
+- LOS was categorised into five clinically meaningful groups to account for its right-skewed distribution:
 
+  | Class | Range (days) | Clinical interpretation |
+  |---|---|---|
+  | 1 | 0–4 | Short, uncomplicated acute admissions |
+  | 2 | 5–9 | Subacute monitoring phase |
+  | 3 | 10–19 | Medically complex cases with complications or delayed recovery |
+  | 4 | 20–29 | Prolonged stays requiring high resource consumption and multidisciplinary input |
+  | 5 | ≥30 | Extreme admissions involving the most clinically vulnerable patients |
+
+  This five-category scheme is consistent with prior literature; no universal LOS categorisation standard exists, with reported cut-off thresholds ranging from 3 to 30 days across studies. The ≥30-day upper boundary aligns with the widely used 30-day horizon in hospital performance monitoring, and observations were grouped into a single top category given the relatively small number of very prolonged hospitalisations.
+
+### Missing Data Handling
+- Missingness in predictor variables was minimal (< 0.03%) and was not systematically related to observed characteristics at either the patient or hospital level; affected observations were omitted.
+- **Admission outcome imputation** followed a rule-based procedure:
+  - Where the recorded treatment outcome indicated death, the admission outcome was deterministically assigned as death.
+  - For remaining observations with missing admission outcomes, cases were redistributed across non-death outcome categories in proportion to their observed distribution in the complete data.
+- A stepwise flowchart of the data preparation process is provided in *Supplementary File S1, Table 1*.
+
+### Train/Test Split and External Validation
+- The **2022 dataset** was randomly partitioned into **training (80%)** and **test (20%)** subsets, used for model development and internal evaluation, respectively.
+- The independent **2023 dataset** was reserved exclusively for **external temporal validation** and was not used at any stage of model development or hyperparameter tuning, ensuring an unbiased estimate of temporal generalisability.
 
 ## Feature Engineering
 
@@ -30,75 +56,69 @@ Due to data privacy restrictions, raw data are not publicly available. Only deri
 - Chapters were further aggregated into clinically meaningful disease categories (e.g., infectious diseases, circulatory system, neoplasms).
 - A binary diagnosis-item matrix was constructed for modelling purposes.
 
-
 ### 2. Demographic Features
-- Age was categorised into five groups: newborn, child, young adult, middle-aged adult, and senior.
+- Age was stratified into five clinically informed groups, reflecting the observed distribution of admitted patients and established age-related differences in hospitalisation patterns:
+  - 0–4 years (newborn/infant)
+  - 5–17 years (child)
+  - 18–44 years (young adult)
+  - 45–71 years (middle-aged adult)
+  - ≥72 years (senior)
 - Sex was standardised into binary categories (male/female).
 - Both variables were transformed into one-hot encoded representations.
 
-
-
 ### 3. Socioeconomic Status (Employment / Insurance Type)
-- Employment status was used to infer Mandatory Health Insurance (MSHI) scheme contribution type (self-paid vs MSHI).
+- Employment status was used to infer Mandatory Social Health Insurance (MSHI) contribution type (self-paid vs. MSHI-covered).
 - Derived categorical indicators were encoded as binary features.
 
-
-
 ### 4. Admission Characteristics
-- Admission type was classified as **planned vs emergency**.
+- Admission type was classified as planned vs. emergency.
 - Admission outcomes were harmonised into four categories: discharged, referred, death, and self-discharge.
-- Clinical complication status was binarised (presence vs absence of complication).
-
-
+- Clinical complication status was binarised (presence vs. absence of complication).
 
 ### 5. Clinical Specialty Mapping
 Hospital ward profiles (`prof_koiki`) were mapped into broader clinical domains:
-
-- Internal medicine  
-- Surgery  
-- Pediatrics  
-- Oncology / Hematology  
-- Neurology / Neurosurgery  
-- Orthopedics / Trauma  
-- Other specialties  
+- Internal medicine
+- Surgery
+- Pediatrics
+- Oncology / Hematology
+- Neurology / Neurosurgery
+- Orthopedics / Trauma
+- Other specialties
 
 This aggregation reduces dimensionality while preserving clinical interpretability.
 
-
-
-## Hospital-Level Characteristics
-Hospital administrative data were merged using facility identifiers (`mo_name`) to enrich patient-level records.
-
-Derived variables include:
-
-- Hospital level: regional, city, rural, republican  
-- Ownership type: public vs private  
-- Geographical region: North, South, East, West, Central, National status  
+### Hospital-Level Characteristics
+Hospital administrative data were merged using facility identifiers (`mo_name`) to enrich patient-level records. Derived variables include:
+- **Hospital level:** regional, city, rural, republican
+- **Ownership type:** public vs. private
+- **Geographical region:** North, South, East, West, Central, National status
 
 All hospital-level variables were transformed into binary indicator matrices for modelling.
 
+### Feature Encoding
+Categorical predictors were transformed into numeric representations using two strategies, selected according to the distributional characteristics of each variable:
+- **Target encoding:** categories mapped to the mean outcome value for that category, based on the training data distribution
+- **One-hot encoding:** applied to remaining categorical variables
 
-## Spatial and Geographic Features
-Hospital regional identifiers were used to classify facilities into macro-geographical zones of Kazakhstan. This enables spatial analysis of service provision patterns and regional variation in hospital utilisation.
-
+### Spatial and Geographic Features
+Hospital regional identifiers were used to classify facilities into macro-geographical zones of Kazakhstan, enabling spatial analysis of service provision patterns and regional variation in hospital utilisation.
 
 ## Final Analytical Dataset
-All engineered feature blocks were merged at the patient-episode level using a unique identifier. The final dataset includes:
 
-- Diagnosis features  
-- Demographic variables  
-- Socioeconomic indicators  
-- Admission characteristics  
-- Clinical specialty indicators  
-- Hospital-level attributes  
-- Outcome variable (LOS)
+All engineered feature blocks were merged at the patient-episode level using a unique identifier. The final dataset includes:
+- Diagnosis features
+- Demographic variables
+- Socioeconomic indicators
+- Admission characteristics
+- Clinical specialty indicators
+- Hospital-level attributes
+- Outcome variable (LOS class, 5 categories)
 
 The resulting dataset is a high-dimensional binary feature matrix designed for statistical modelling and machine learning applications.
 
-
-
-## Input Files
-- df2022.rds, df2023.rds – final feature-engineered dataset for modelling  
+### Input Files
+- `df2022.rds` – final feature-engineered dataset for model development (training/test split)
+- `df2023.rds` – final feature-engineered dataset for external temporal validation
 
 
 
