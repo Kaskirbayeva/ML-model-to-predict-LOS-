@@ -161,6 +161,12 @@ For each model and each LOS class, the following one-vs-rest metrics were comput
   <img src="Figures/Pipeline_1.png" width="600">
 </p>
 
+
+
+<p align="center">
+  <img src="Figures/Pipeline_2.png" width="600">
+</p>
+
 ## Requirements
 
 This project is implemented entirely in **R** (version ≥ 4.2 recommended), using the following core packages:
