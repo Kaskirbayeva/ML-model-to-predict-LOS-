@@ -10,6 +10,8 @@ library(caret)
 # LOAD DATA
 ##############################################################################
 
+train_df <- readRDS("train_df.rds")
+test_df  <- readRDS("test_df.rds")
 
 ##############################################################################
 # TRAIN MULTINOMIAL LOGISTIC REGRESSION
@@ -91,29 +93,6 @@ saveRDS(
 )
 
 ##############################################################################
-# SAVE PREDICTIONS
+# SAVE RESULTS
 ##############################################################################
 save.image(file = "MultiLR.RData")
-saveRDS(
-  pred_multinom,
-  "pred_multinom.rds"
-)
-
-saveRDS(
-  multinom_prob,
-  "prob_multinom.rds"
-)
-
-##############################################################################
-# SAVE CONFUSION MATRIX
-##############################################################################
-
-saveRDS(
-  cm_multinom,
-  "cm_multinom.rds"
-)
-
-cat("\n")
-cat("=====================================\n")
-cat("Multinomial Logistic Regression done.\n")
-cat("=====================================\n")
