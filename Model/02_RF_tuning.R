@@ -310,43 +310,5 @@ importance_rf
 ##############################################################################
 # SAVE RESULTS
 ##############################################################################
-
-# saveRDS(
-#   rf_final,
-#   "models/rf_final.rds"
-# )
-# 
-# saveRDS(
-#   pred_rf,
-#   "models/pred_rf.rds"
-# )
-
-saveRDS(
-  rf_prob,
-  "models/rf_prob.rds"
-)
-
-saveRDS(
-  results_rf,
-  "models/results_rf.rds"
-)
-
-write.csv(
-  
-  data.frame(
-    
-    Variable=names(importance_rf),
-    
-    Importance=importance_rf
-    
-  ),
-  
-  "results/RF_variable_importance.csv",
-  
-  row.names=FALSE
-  
-)
-
-
 save.image(file = "RF.RData")
 
