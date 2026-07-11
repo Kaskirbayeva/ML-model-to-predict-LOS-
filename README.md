@@ -49,7 +49,7 @@ The analysis is based on anonymised inpatient administrative records from hospit
 Due to data privacy restrictions, raw data are not publicly available. Only derived and anonymised analytical datasets are used in this repository.
 
 ## Feature Engineering
-All feature engineering steps described below were implemented in R, primarily using base R and the dplyr/tidyr packages for data manipulation.
+All feature engineering steps described below were implemented in R, primarily using base R and the `dplyr/tidyr` packages for data manipulation.
 ### 1. ICD-10 Classification
 - ICD-10 diagnosis codes were truncated to the 3-character level.
 - Codes were grouped into WHO ICD-10 chapters (I–XXII).
@@ -134,7 +134,7 @@ The resulting dataset is a high-dimensional binary feature matrix designed for s
 | Artificial Neural Network (ANN) | `05_ANN_tuning.R` | Single-hidden-layer feedforward network (`nnet`); hyperparameters (hidden units, weight decay) tuned via 5-fold CV grid search on a 10% stratified subsample with centered/scaled inputs, final model refit on the full training set and evaluated on the held-out test set |
 | Multinomial Logistic Regression | `06_MultinomialLR.R` | Baseline multinomial logit model (`nnet::multinom`), fit directly on the full training set and evaluated on the held-out test set, used for interpretable benchmarking |
 
-All models were implemented in R: Random Forest (randomForest/ranger), XGBoost (xgboost), LightGBM (lightgbm), ANN (nnet), and Multinomial Logistic Regression (nnet::multinom).
+All models were implemented in R: Random Forest (`randomForest/ranger`), XGBoost (`xgboost`), LightGBM (`lightgbm`), ANN (`nnet`), and Multinomial Logistic Regression (`nnet::multinom`).
 
 ## Evaluation Metrics
 
