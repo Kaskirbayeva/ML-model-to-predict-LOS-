@@ -176,7 +176,7 @@ The 2022 dataset was randomly partitioned into training (80%) and test (20%) sub
   <img src="Figures/Pipeline_2.png" width="600">
 </p>
 
-To assess temporal generalisability, the final tuned models were additionally evaluated on an independent **2023 dataset**, held out entirely from model development and hyperparameter tuning. This provides an unbiased estimate of how well each model's predictive performance holds up when applied to a different time period than the one it was trained on — a key consideration given the recent introduction of the MSHI financing scheme, which may affect admission and coding patterns over time.
+To assess temporal generalisability, the final tuned models were additionally evaluated on an independent **2023 dataset**, held out entirely from model development and hyperparameter tuning. This provides an unbiased estimate of how well each model's predictive performance holds up when applied to a different time period than the one it was trained on.
 
 
 ## Requirements
