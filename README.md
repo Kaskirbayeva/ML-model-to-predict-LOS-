@@ -160,11 +160,15 @@ For each model and each LOS class, the following one-vs-rest metrics were comput
 ## Modelling pipeline 
 
 ### Core Pipeline: Tuning, Training, and Test Evaluation
+The 2022 dataset was randomly partitioned into training (80%) and test (20%) subsets. Hyperparameters for each model were tuned using 5-fold cross-validation on a 10% stratified subsample of the training set, selected via macro-averaged F1 score to account for class imbalance across LOS categories. Once tuned, each model was refit on the **full** training set, then evaluated on the held-out test set using class-specific precision, recall, F1, and AUC, each with 95% bootstrap confidence intervals (B = 1,000 resamples).
+
 <p align="center">
   <img src="Figures/Pipeline_1.png" width="600">
 </p>
 
 ### External Temporal Validation
+
+To assess temporal generalisability, the final tuned models were additionally evaluated on an independent **2023 dataset**, held out entirely from model development and hyperparameter tuning. This provides an unbiased estimate of how well each model's predictive performance holds up when applied to a different time period than the one it was trained on — a key consideration given the recent introduction of the MSHI financing scheme, which may affect admission and coding patterns over time.
 
 <p align="center">
   <img src="Figures/Pipeline_2.png" width="600">
