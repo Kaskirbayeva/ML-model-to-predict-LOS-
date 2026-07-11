@@ -35,14 +35,13 @@ Due to data privacy restrictions, raw data are not publicly available. Only deri
   | 4 | 20–29 | Prolonged stays requiring high resource consumption and multidisciplinary input |
   | 5 | ≥30 | Extreme admissions involving the most clinically vulnerable patients |
 
-  This five-category scheme is consistent with prior literature; no universal LOS categorisation standard exists, with reported cut-off thresholds ranging from 3 to 30 days across studies. The ≥30-day upper boundary aligns with the widely used 30-day horizon in hospital performance monitoring, and observations were grouped into a single top category given the relatively small number of very prolonged hospitalisations.
 
 ### Missing Data Handling
 - Missingness in predictor variables was minimal (< 0.03%) and was not systematically related to observed characteristics at either the patient or hospital level; affected observations were omitted.
 - **Admission outcome imputation** followed a rule-based procedure:
   - Where the recorded treatment outcome indicated death, the admission outcome was deterministically assigned as death.
   - For remaining observations with missing admission outcomes, cases were redistributed across non-death outcome categories in proportion to their observed distribution in the complete data.
-- A stepwise flowchart of the data preparation process is provided in *Supplementary File S1, Table 1*.
+
 
 ### Train/Test Split and External Validation
 - The **2022 dataset** was randomly partitioned into **training (80%)** and **test (20%)** subsets, used for model development and internal evaluation, respectively.
@@ -76,7 +75,7 @@ Due to data privacy restrictions, raw data are not publicly available. Only deri
 - Clinical complication status was binarised (presence vs. absence of complication).
 
 ### 5. Clinical Specialty Mapping
-Hospital ward profiles (`prof_koiki`) were mapped into broader clinical domains:
+Hospital ward profiles were mapped into broader clinical domains:
 - Internal medicine
 - Surgery
 - Pediatrics
@@ -88,7 +87,7 @@ Hospital ward profiles (`prof_koiki`) were mapped into broader clinical domains:
 This aggregation reduces dimensionality while preserving clinical interpretability.
 
 ### Hospital-Level Characteristics
-Hospital administrative data were merged using facility identifiers (`mo_name`) to enrich patient-level records. Derived variables include:
+Hospital administrative data were merged using facility identifiers to enrich patient-level records. Derived variables include:
 - **Hospital level:** regional, city, rural, republican
 - **Ownership type:** public vs. private
 - **Geographical region:** North, South, East, West, Central, National status
@@ -131,14 +130,6 @@ The resulting dataset is a high-dimensional binary feature matrix designed for s
 | LightGBM | `04_LightGBM_tuning.R` | Gradient-boosted trees with leaf-wise growth (`lightgbm`); hyperparameters (num_leaves, learning rate, feature_fraction, bagging_fraction) tuned via 5-fold CV grid search on a 10% stratified subsample, final model refit on the full training set and evaluated on the held-out test set |
 | Artificial Neural Network (ANN) | `05_ANN_tuning.R` | Single-hidden-layer feedforward network (`nnet`); hyperparameters (hidden units, weight decay) tuned via 5-fold CV grid search on a 10% stratified subsample with centered/scaled inputs, final model refit on the full training set and evaluated on the held-out test set |
 | Multinomial Logistic Regression | `06_MultinomialLR.R` | Baseline multinomial logit model (`nnet::multinom`), fit directly on the full training set and evaluated on the held-out test set, used for interpretable benchmarking |
-
-## Hyperparameter Tuning
-
-- All tunable models (XGBoost, ANN) were optimised using 5-fold cross-validation on a 10% stratified subsample of the training data, prior to fitting the final model on the full training set.
-Macro-averaged F1 score was used as the selection criterion across CV folds to account for class imbalance in LOS categories
-
-- All tunable models (XGBoost, ANN) were optimised using 5-fold cross-validation on a 10% stratified subsample of the training data, prior to fitting the final model on the full training set.
-Macro-averaged F1 score was used as the selection criterion across CV folds to account for class imbalance in LOS categories.
 
 
 ## Evaluation Metrics
