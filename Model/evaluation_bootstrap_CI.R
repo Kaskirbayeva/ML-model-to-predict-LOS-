@@ -2,17 +2,14 @@
 # evaluation_bootstrap_CI.R
 # Class-Specific Metrics with 95% Bootstrap CI — ALL MODELS
 ##############################################################################
-# This script assumes each model script (02_RandomForest_tuning.R through
-# 06_MultinomialLR.R) has already been run and has saved its predictions
-# and predicted probabilities as .rds files, e.g.:
+
 #
 #   pred_rf.rds        / prob_rf.rds
-#   pred_xgb.rds       / prob_xgb.rds     (already saved in 03_XGBoost_tuning.R)
+#   pred_xgb.rds       / prob_xgb.rds     
 #   pred_lgb.rds       / prob_lgb.rds
 #   pred_ann.rds       / prob_ann.rds
-#   pred_multinom.rds  / prob_multinom.rds (already saved in 06_MultinomialLR.R)
-#
-# Adjust the file paths below if your naming convention differs.
+#   pred_multinom.rds  / prob_multinom.rds
+
 ##############################################################################
 
 rm(list = ls())
@@ -52,10 +49,6 @@ prob_multinom  <- readRDS("prob_multinom.rds")
 ##############################################################################
 # STANDARDISE PROBABILITY MATRICES
 ##############################################################################
-# Ensure every probability matrix has column names matching the class
-# levels, so it can be indexed by name (prob[,positive]) regardless of
-# how each model script originally constructed it.
-
 classes <- levels(test_df$los_class)
 
 colnames(prob_rf)       <- classes
@@ -67,8 +60,6 @@ colnames(prob_multinom) <- classes
 ##############################################################################
 # MODEL REGISTRY
 ##############################################################################
-# Add or remove models here — the evaluation loop below is fully generic
-# and will iterate over every entry in this list.
 
 models <- list(
   "Random Forest"                    = list(pred = pred_rf,       prob = prob_rf),
@@ -273,37 +264,3 @@ write.csv(
   "All_Models_Class_Metrics_95CI.csv",
   row.names = FALSE
 )
-
-##############################################################################
-# MACRO-AVERAGED SUMMARY PER MODEL (OPTIONAL)
-##############################################################################
-# Quick reference table: mean point-estimate F1 and AUC per model,
-# averaged across all LOS classes (useful for a single-row model comparison).
-
-extract_point_estimate <- function(x){
-  as.numeric(sub("^([0-9.]+).*", "\\1", x))
-}
-
-summary_all <- aggregate(
-  cbind(
-    F1  = extract_point_estimate(results_all$F1),
-    AUC = extract_point_estimate(results_all$AUC)
-  ) ~ Model,
-  data = results_all,
-  FUN = mean
-)
-
-summary_all <- summary_all[order(-summary_all$F1), ]
-
-print(summary_all)
-
-write.csv(
-  summary_all,
-  "All_Models_MacroAveraged_Summary.csv",
-  row.names = FALSE
-)
-
-cat("\n")
-cat("=====================================\n")
-cat("Bootstrap CI evaluation complete.\n")
-cat("=====================================\n")
