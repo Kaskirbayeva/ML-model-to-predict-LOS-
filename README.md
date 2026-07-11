@@ -140,6 +140,7 @@ For each model and each LOS class, the following one-vs-rest metrics were comput
 ## Repository Structure
 project/
 ├── mapping.R                       # Data cleaning and feature engineering
+
 ├── 01_data_preparation.R           # Train/test split and preprocessing
 ├── 02_RandomForest_tuning.R        # Random Forest hyperparameter tuning and final model
 ├── 03_XGBoost_tuning.R             # XGBoost hyperparameter tuning and final model
