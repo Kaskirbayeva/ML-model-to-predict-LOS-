@@ -141,7 +141,7 @@ For each model and each LOS class, the following one-vs-rest metrics were comput
 - F1 score
 - AUC (ROC)
 
-** Uncertainty quantification: ** 95% confidence intervals for all metrics were estimated via non-parametric bootstrap resampling (B = 1,000 resamples) of the test set.
+**Uncertainty quantification:** 95% confidence intervals for all metrics were estimated via non-parametric bootstrap resampling (B = 1,000 resamples) of the test set.
 
 ## Feature Importance
 
