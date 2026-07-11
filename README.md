@@ -1,7 +1,7 @@
 # Hospital Length of Stay Prediction
 
 ## Overview
-This project develops and evaluates machine learning models to predict hospital length of stay (LOS) using routinely collected administrative hospital data. The main objectives are to compare predictive performance across different algorithms and to identify the most important factors associated with prolonged hospitalisation.
+This project develops and evaluates machine learning models to predict hospital length of stay (LOS) using routinely collected administrative hospital data. The main objectives are to compare predictive performance across different algorithms and to identify the most important factors associated with hospitalisation.
 
 
 
