@@ -139,13 +139,12 @@ For each model and each LOS class, the following one-vs-rest metrics were comput
 
 ## Repository Structure
 project/
-
-13allinone.R        # Model training and evaluation
-
-├── mapping.R         # Data cleaning and feature engineering
-
-├── README.md         # Project documentation
-
-├── data/             # Example or processed datasets (if shareable)
-
-├── figures/          # Output plots and visualisations
+├── mapping.R                       # Data cleaning and feature engineering
+├── 01_data_preparation.R           # Train/test split and preprocessing
+├── 03_XGBoost_tuning.R             # XGBoost hyperparameter tuning and final model
+├── 04_ANN_tuning.R                 # ANN hyperparameter tuning and final model
+├── 06_MultinomialLR.R              # Multinomial logistic regression model
+├── evaluation_bootstrap_CI.R       # Class-specific metrics with 95% bootstrap CIs
+├── README.md                       # Project documentation
+├── data/                           # Example or processed datasets (if shareable)
+└── figures/                        # Output plots and visualisations
