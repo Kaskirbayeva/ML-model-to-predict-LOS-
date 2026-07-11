@@ -157,11 +157,14 @@ For each model and each LOS class, the following one-vs-rest metrics were comput
 - Top predictive features were identified using XGBoost gain-based importance scores.
 - For the multinomial logistic regression model, variable importance was approximated as the mean absolute coefficient across outcome classes.
 
+## Modelling pipeline 
+
+### Core Pipeline: Tuning, Training, and Test Evaluation
 <p align="center">
   <img src="Figures/Pipeline_1.png" width="600">
 </p>
 
-
+### External Temporal Validation
 
 <p align="center">
   <img src="Figures/Pipeline_2.png" width="600">
