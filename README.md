@@ -106,11 +106,11 @@ The resulting dataset is a high-dimensional binary feature matrix designed for s
 ## Methodology
 | Model | Script | Description |
 |---|---|---|
+| Random Forest | `02_RandomForest_tuning.R` | Bagged decision tree ensemble (`randomForest`/`ranger`), tuned via 5-fold CV grid search (mtry, ntree, node size) on a 10% stratified tuning sample |
 | XGBoost | `03_XGBoost_tuning.R` | Gradient-boosted trees, tuned via 5-fold CV grid search (max depth, learning rate, subsample, colsample) on a 10% stratified tuning sample |
-| Artificial Neural Network (ANN) | `04_ANN_tuning.R` | Single-hidden-layer feedforward network (`nnet`), tuned via 5-fold CV grid search (hidden units, weight decay), with centered/scaled inputs |
-| Random Forest | `05_RandomForest_tuning.R` | Bagged decision tree ensemble (`randomForest`/`ranger`), tuned via 5-fold CV grid search (mtry, ntree, node size) on a 10% stratified tuning sample |
+| LightGBM | `04_LightGBM_tuning.R` | Gradient-boosted trees with leaf-wise growth (`lightgbm`), tuned via 5-fold CV grid search (num_leaves, learning rate, feature_fraction, bagging_fraction) on a 10% stratified tuning sample |
+| Artificial Neural Network (ANN) | `05_ANN_tuning.R` | Single-hidden-layer feedforward network (`nnet`), tuned via 5-fold CV grid search (hidden units, weight decay), with centered/scaled inputs |
 | Multinomial Logistic Regression | `06_MultinomialLR.R` | Baseline multinomial logit model (`nnet::multinom`) for interpretable benchmarking |
-| LightGBM | `07_LightGBM_tuning.R` | Gradient-boosted trees with leaf-wise growth (`lightgbm`), tuned via 5-fold CV grid search (num_leaves, learning rate, feature_fraction, bagging_fraction) on a 10% stratified tuning sample |
 ## Repository Structure
 project/
 
