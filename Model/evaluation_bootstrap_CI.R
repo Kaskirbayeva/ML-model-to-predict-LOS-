@@ -2,14 +2,14 @@
 # evaluation_bootstrap_CI.R
 # Class-Specific Metrics with 95% Bootstrap CI — ALL MODELS
 ##############################################################################
-
+#   RF.RData            -> pred_rf,       rf_prob
+#   XGB.RData           -> pred_xgb,      xgb_prob
+#   LightGBM.RData      -> pred_lgb,      lgb_prob
+#   ANN.RData           -> pred_ann,      ann_prob
+#   MultiLR.RData       -> pred_multinom, multinom_prob
 #
-#   pred_rf.rds        / prob_rf.rds
-#   pred_xgb.rds       / prob_xgb.rds     
-#   pred_lgb.rds       / prob_lgb.rds
-#   pred_ann.rds       / prob_ann.rds
-#   pred_multinom.rds  / prob_multinom.rds
-
+# Each load() call brings its objects into the global environment under
+# their original names
 ##############################################################################
 
 rm(list = ls())
@@ -21,52 +21,41 @@ library(pROC)
 # LOAD TEST DATA
 ##############################################################################
 
-load("01_data_preparation.RData")
-
-# Objects loaded:
-# train_df
-# test_df
+train_df <- readRDS("train_df.rds")
+test_df  <- readRDS("test_df.rds")
 
 ##############################################################################
-# LOAD MODEL PREDICTIONS
+# LOAD MODEL RESULTS (.RData FILES)
 ##############################################################################
 
-pred_rf        <- readRDS("pred_rf.rds")
-prob_rf        <- readRDS("prob_rf.rds")
-
-pred_xgb       <- readRDS("pred_xgb.rds")
-prob_xgb       <- readRDS("prob_xgb.rds")
-
-pred_lgb       <- readRDS("pred_lgb.rds")
-prob_lgb       <- readRDS("prob_lgb.rds")
-
-pred_ann       <- readRDS("pred_ann.rds")
-prob_ann       <- readRDS("prob_ann.rds")
-
-pred_multinom  <- readRDS("pred_multinom.rds")
-prob_multinom  <- readRDS("prob_multinom.rds")
+load("Rf.RData")   
+load("XGB.RData")       
+load("LightGBM.RData")       
+load("ANN.RData")            
+load("MultiLR.RData") 
 
 ##############################################################################
 # STANDARDISE PROBABILITY MATRICES
 ##############################################################################
+
 classes <- levels(test_df$los_class)
 
-colnames(prob_rf)       <- classes
-colnames(prob_xgb)      <- classes
-colnames(prob_lgb)      <- classes
-colnames(prob_ann)      <- classes
-colnames(prob_multinom) <- classes
+colnames(rf_prob)        <- classes
+colnames(xgb_prob)       <- classes
+colnames(lgb_prob)       <- classes
+colnames(ann_prob)       <- classes
+colnames(multinom_prob)  <- classes
 
 ##############################################################################
 # MODEL REGISTRY
 ##############################################################################
 
 models <- list(
-  "Random Forest"                    = list(pred = pred_rf,       prob = prob_rf),
-  "XGBoost"                          = list(pred = pred_xgb,      prob = prob_xgb),
-  "LightGBM"                         = list(pred = pred_lgb,      prob = prob_lgb),
-  "Artificial Neural Network (ANN)"  = list(pred = pred_ann,      prob = prob_ann),
-  "Multinomial Logistic Regression"  = list(pred = pred_multinom, prob = prob_multinom)
+  "Random Forest"                    = list(pred = pred_rf,       prob = rf_prob),
+  "XGBoost"                          = list(pred = pred_xgb,      prob = xgb_prob),
+  "LightGBM"                         = list(pred = pred_lgb,      prob = lgb_prob),
+  "Artificial Neural Network (ANN)"  = list(pred = pred_ann,      prob = ann_prob),
+  "Multinomial Logistic Regression"  = list(pred = pred_multinom, prob = multinom_prob)
 )
 
 ##############################################################################
@@ -264,3 +253,45 @@ write.csv(
   "All_Models_Class_Metrics_95CI.csv",
   row.names = FALSE
 )
+
+##############################################################################
+# MACRO-AVERAGED SUMMARY PER MODEL (OPTIONAL)
+##############################################################################
+
+extract_point_estimate <- function(x){
+  as.numeric(sub("^([0-9.]+).*", "\\1", x))
+}
+
+summary_all <- aggregate(
+  cbind(
+    F1  = extract_point_estimate(results_all$F1),
+    AUC = extract_point_estimate(results_all$AUC)
+  ) ~ Model,
+  data = results_all,
+  FUN = mean
+)
+
+summary_all <- summary_all[order(-summary_all$F1), ]
+
+print(summary_all)
+
+write.csv(
+  summary_all,
+  "All_Models_MacroAveraged_Summary.csv",
+  row.names = FALSE
+)
+
+##############################################################################
+# SAVE COMBINED RESULTS OBJECT
+##############################################################################
+
+save(
+  results_all,
+  summary_all,
+  file = "evaluation_bootstrap_CI_results.RData"
+)
+
+cat("\n")
+cat("=====================================\n")
+cat("Bootstrap CI evaluation complete.\n")
+cat("=====================================\n")
