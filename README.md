@@ -1,9 +1,12 @@
 # Hospital Length of Stay Prediction
 
 ## Overview
-ength of stay (LOS) is one of the key indicators used by hospitals and health system planners to assess resource utilisation, forecast bed capacity, and evaluate efficiency of inpatient care. Prolonged or unpredictable hospitalisations place substantial strain on staffing, equipment, and budgetary planning, making accurate LOS prediction a priority for evidence-based healthcare management.
+Length of stay (LOS) is one of the key indicators used by hospitals and health system planners to assess resource utilisation, forecast bed capacity, and evaluate efficiency of inpatient care. Prolonged or unpredictable hospitalisations place substantial strain on staffing, equipment, and budgetary planning, making accurate LOS prediction a priority for evidence-based healthcare management.
+
 The growing availability of routinely collected administrative hospital data has created new opportunities to move beyond traditional statistical approaches to LOS prediction. Machine learning (ML) methods offer a promising avenue in this context, given their capacity to model complex, non-linear relationships between patient-, admission-, and hospital-level characteristics without requiring strong a priori assumptions about functional form. As administrative datasets continue to expand in both volume and granularity, ML-based approaches are increasingly well positioned to support more accurate and scalable LOS prediction than conventional regression-based methods alone.
+
 Despite this potential, evidence on ML-based LOS prediction remains geographically concentrated in high-income settings, with comparatively little known about model performance and predictor relevance in Central Asian health systems. Kazakhstan presents a particularly relevant and underexplored context: the country introduced its Mandatory Social Health Insurance (MSHI) scheme in recent years, fundamentally reshaping how hospital services are financed and reimbursed. This transition creates both a need and an opportunity to examine LOS patterns and their predictors under the new financing structure, using nationally representative administrative data.
+
 This project addresses this gap by developing and comparing multiple ML approaches for LOS prediction using hospital administrative records from Kazakhstan, with the aim of informing resource planning and contributing context-specific evidence from a setting that remains underrepresented in the LOS prediction literature.
 
 
