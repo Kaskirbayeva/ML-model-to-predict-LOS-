@@ -1,7 +1,7 @@
 # Hospital Length of Stay Prediction
 
 ## Overview
-This project develops and evaluates machine learning models to predict hospital length of stay (LOS) using routinely collected administrative hospital data. The main objectives are to compare predictive performance across different algorithms and to identify the most important factors associated with hospitalisation.
+This project develops and evaluates machine learning models to predict hospital length of stay (LOS) using routinely collected administrative hospital data. The main objectives are to compare predictive performance across different algorithms, quantify uncertainty in class-specific performance, and identify the most important factors associated with hospitalisation.
 
 
 
@@ -10,7 +10,7 @@ The analysis is based on anonymised inpatient administrative records from hospit
 
 - **Time period:** 2018–2022 (with extended processing for 2023 in supplementary pipeline)
 - **Unit of analysis:** Hospital admission episode
-- **Outcome variable:** Length of stay (LOS), measured in days
+- **Outcome variable:** Length of stay (LOS), modelled as a categorical class
 - **Predictor domains:**
   - Demographic characteristics
   - Clinical diagnoses
@@ -39,7 +39,7 @@ Due to data privacy restrictions, raw data are not publicly available. Only deri
 
 
 ### 3. Socioeconomic Status (Employment / Insurance Type)
-- Employment status was used to infer OSMS contribution type (self-paid vs government-covered).
+- Employment status was used to infer Mandatory Health Insurance (MSHI) scheme contribution type (self-paid vs MSHI).
 - Derived categorical indicators were encoded as binary features.
 
 
@@ -83,9 +83,7 @@ Hospital regional identifiers were used to classify facilities into macro-geogra
 
 
 ## Final Analytical Dataset
-All engineered feature blocks were merged at the patient-episode level using a unique identifier.
-
-The final dataset includes:
+All engineered feature blocks were merged at the patient-episode level using a unique identifier. The final dataset includes:
 
 - Diagnosis features  
 - Demographic variables  
@@ -99,21 +97,18 @@ The resulting dataset is a high-dimensional binary feature matrix designed for s
 
 
 
-## Output Files
-- df_new.RData – cleaned episode-level dataset  
-- dff_new.RData – dataset merged with hospital-level features  
-- df_all_new.RData – final feature-engineered dataset for modelling  
+## Input Files
+- df2022.rds, df2023.rds – final feature-engineered dataset for modelling  
 
-Equivalent datasets were also constructed for 2023 to enable temporal comparison.
 
 
 
 ## Methodology
-- Models: XGBoost, Artificial Neural Network (ANN)  
-- Feature selection: Top 20 features identified using XGBoost importance scores  
-- Evaluation metrics: RMSE, MAE  
-- Validation strategy: Train–test split with cross-validation  
-
+| Model | Script | Description |
+|---|---|---|
+| XGBoost | `03_XGBoost_tuning.R` | Gradient-boosted trees, tuned via 5-fold CV grid search (max depth, learning rate, subsample, colsample) on a 10% stratified tuning sample |
+| Artificial Neural Network (ANN) | `04_ANN_tuning.R` | Single-hidden-layer feedforward network (`nnet`), tuned via 5-fold CV grid search (hidden units, weight decay), with centered/scaled inputs |
+| Multinomial Logistic Regression | `06_MultinomialLR.R` | Baseline multinomial logit model (`nnet::multinom`) for interpretable benchmarking |
 
 ## Repository Structure
 project/
