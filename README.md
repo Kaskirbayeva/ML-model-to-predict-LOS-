@@ -157,6 +157,10 @@ For each model and each LOS class, the following one-vs-rest metrics were comput
 - Top predictive features were identified using XGBoost gain-based importance scores.
 - For the multinomial logistic regression model, variable importance was approximated as the mean absolute coefficient across outcome classes.
 
+<p align="center">
+  <img src="Figures/Pipeline_1.png" width="600">
+</p>
+
 ## Requirements
 
 This project is implemented entirely in **R** (version ≥ 4.2 recommended), using the following core packages:
