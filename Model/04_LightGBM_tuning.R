@@ -277,29 +277,3 @@ print(importance_lgb)
 # SAVE RESULTS
 ##############################################################################
 save.image(file = "LightGBM.RData")
-
-saveRDS(
-  lgb_final,
-  "models/lgb_final.rds"
-)
-
-saveRDS(
-  results_lgb,
-  "results/lgb_tuning_results.rds"
-)
-
-saveRDS(
-  pred_lgb,
-  "predictions/pred_lgb.rds"
-)
-
-saveRDS(
-  lgb_prob,
-  "predictions/lgb_prob.rds"
-)
-
-write.csv(
-  importance_lgb,
-  "results/lgb_variable_importance.csv",
-  row.names=FALSE
-)
