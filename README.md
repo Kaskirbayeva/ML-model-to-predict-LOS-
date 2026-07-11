@@ -111,6 +111,32 @@ The resulting dataset is a high-dimensional binary feature matrix designed for s
 | LightGBM | `04_LightGBM_tuning.R` | Gradient-boosted trees with leaf-wise growth (`lightgbm`); hyperparameters (num_leaves, learning rate, feature_fraction, bagging_fraction) tuned via 5-fold CV grid search on a 10% stratified subsample, final model refit on the full training set and evaluated on the held-out test set |
 | Artificial Neural Network (ANN) | `05_ANN_tuning.R` | Single-hidden-layer feedforward network (`nnet`); hyperparameters (hidden units, weight decay) tuned via 5-fold CV grid search on a 10% stratified subsample with centered/scaled inputs, final model refit on the full training set and evaluated on the held-out test set |
 | Multinomial Logistic Regression | `06_MultinomialLR.R` | Baseline multinomial logit model (`nnet::multinom`), fit directly on the full training set and evaluated on the held-out test set, used for interpretable benchmarking |
+
+## Hyperparameter Tuning
+
+- All tunable models (XGBoost, ANN) were optimised using 5-fold cross-validation on a 10% stratified subsample of the training data, prior to fitting the final model on the full training set.
+Macro-averaged F1 score was used as the selection criterion across CV folds to account for class imbalance in LOS categories
+
+- All tunable models (XGBoost, ANN) were optimised using 5-fold cross-validation on a 10% stratified subsample of the training data, prior to fitting the final model on the full training set.
+Macro-averaged F1 score was used as the selection criterion across CV folds to account for class imbalance in LOS categories.
+
+
+## Evaluation Metrics
+
+For each model and each LOS class, the following one-vs-rest metrics were computed on the held-out test set:
+
+- Precision (Positive Predictive Value)
+- Recall (Sensitivity)
+- F1 score
+- AUC (ROC)
+
+## Uncertainty quantification: 95% confidence intervals for all metrics were estimated via non-parametric bootstrap resampling (B = 1,000 resamples) of the test set.
+
+## Feature Importance
+
+- Top predictive features were identified using XGBoost gain-based importance scores.
+- For the multinomial logistic regression model, variable importance was approximated as the mean absolute coefficient across outcome classes.
+
 ## Repository Structure
 project/
 
