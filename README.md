@@ -106,11 +106,11 @@ The resulting dataset is a high-dimensional binary feature matrix designed for s
 ## Methodology
 | Model | Script | Description |
 |---|---|---|
-| Random Forest | `02_RandomForest_tuning.R` | Bagged decision tree ensemble (`randomForest`/`ranger`), tuned via 5-fold CV grid search (mtry, ntree, node size) on a 10% stratified tuning sample |
-| XGBoost | `03_XGBoost_tuning.R` | Gradient-boosted trees, tuned via 5-fold CV grid search (max depth, learning rate, subsample, colsample) on a 10% stratified tuning sample |
-| LightGBM | `04_LightGBM_tuning.R` | Gradient-boosted trees with leaf-wise growth (`lightgbm`), tuned via 5-fold CV grid search (num_leaves, learning rate, feature_fraction, bagging_fraction) on a 10% stratified tuning sample |
-| Artificial Neural Network (ANN) | `05_ANN_tuning.R` | Single-hidden-layer feedforward network (`nnet`), tuned via 5-fold CV grid search (hidden units, weight decay), with centered/scaled inputs |
-| Multinomial Logistic Regression | `06_MultinomialLR.R` | Baseline multinomial logit model (`nnet::multinom`) for interpretable benchmarking |
+| Random Forest | `02_RandomForest_tuning.R` | Bagged decision tree ensemble (`randomForest`/`ranger`); hyperparameters (mtry, ntree, node size) tuned via 5-fold CV grid search on a 10% stratified subsample, final model refit on the full training set and evaluated on the held-out test set |
+| XGBoost | `03_XGBoost_tuning.R` | Gradient-boosted trees; hyperparameters (max depth, learning rate, subsample, colsample) tuned via 5-fold CV grid search on a 10% stratified subsample, final model refit on the full training set and evaluated on the held-out test set |
+| LightGBM | `04_LightGBM_tuning.R` | Gradient-boosted trees with leaf-wise growth (`lightgbm`); hyperparameters (num_leaves, learning rate, feature_fraction, bagging_fraction) tuned via 5-fold CV grid search on a 10% stratified subsample, final model refit on the full training set and evaluated on the held-out test set |
+| Artificial Neural Network (ANN) | `05_ANN_tuning.R` | Single-hidden-layer feedforward network (`nnet`); hyperparameters (hidden units, weight decay) tuned via 5-fold CV grid search on a 10% stratified subsample with centered/scaled inputs, final model refit on the full training set and evaluated on the held-out test set |
+| Multinomial Logistic Regression | `06_MultinomialLR.R` | Baseline multinomial logit model (`nnet::multinom`), fit directly on the full training set and evaluated on the held-out test set, used for interpretable benchmarking |
 ## Repository Structure
 project/
 
