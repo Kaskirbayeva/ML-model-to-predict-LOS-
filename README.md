@@ -18,8 +18,8 @@ This project addresses this gap by developing and comparing multiple ML approach
 - **Outcome variable:** Length of stay (LOS), modelled as a categorical class (5 levels; see *Outcome Variable Categorisation* below)
 - **Cohort restriction:** The dataset was restricted to observations reimbursed under the Mandatory Social Health Insurance (MSHI) scheme
 - **Predictor domains:**
-  - Demographic characteristics
-  - Clinical diagnoses
+   Demographic characteristics
+   Clinical diagnoses
   - Admission type and outcomes
   - Socioeconomic and insurance status
   - Hospital organisational characteristics
