@@ -53,7 +53,6 @@ Access to the real data is restricted due to data privacy and governance require
 - The 2022 dataset was randomly partitioned into training (80%) and test (20%) subsets, used for model development and internal evaluation, respectively.
 - The independent 2023 dataset was reserved exclusively for external temporal validation and was not used at any stage of model development or hyperparameter tuning, ensuring an unbiased estimate of temporal generalisability.
 
-Due to data privacy restrictions, raw data are not publicly available. Only derived and anonymised analytical datasets are used in this repository.
 
 ## Feature Engineering
 All feature engineering steps described below were implemented in R, primarily using base R and the `dplyr/tidyr` packages for data manipulation.
@@ -102,7 +101,7 @@ Hospital administrative data were merged using facility identifiers to enrich pa
 
 All hospital-level variables were transformed into binary indicator matrices for modelling.
 
-Due to data privacy restrictions, raw data are not publicly available. Only derived and anonymised analytical datasets are used in this repository. All data preparation, feature engineering, modelling, and evaluation were performed in R.
+All data preparation, feature engineering, modelling, and evaluation were performed in R.
 
 ### Feature Encoding
 Categorical predictors were transformed into numeric representations using two strategies, selected according to the distributional characteristics of each variable:
@@ -128,9 +127,6 @@ The resulting dataset is a high-dimensional binary feature matrix designed for s
 ### Input Files
 - `df2022.rds` – final feature-engineered dataset for model development (training/test split)
 - `df2023.rds` – final feature-engineered dataset for external temporal validation
-
-
-
 
 ## Methodology
 | Model | Script | Description |
