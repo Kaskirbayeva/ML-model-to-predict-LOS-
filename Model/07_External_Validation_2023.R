@@ -2,17 +2,6 @@
 # 08_External_Validation_2023.R
 # External Temporal Validation — All Models, 2023 Dataset
 ##############################################################################
-# This script:
-#   1. Loads and prepares the independent 2023 dataset
-#   2. Aligns its feature columns to match the 2022 training feature set
-#   3. Generates predictions/probabilities from all 5 final tuned models
-#   4. Computes class-specific metrics with 95% bootstrap CIs on the
-#      external set (same procedure as evaluation_bootstrap_CI.R)
-#   5. Computes overall metrics (Accuracy, Kappa, Macro P/R/F1, Log Loss)
-#      per model on the external set
-#   6. Compares internal (2022 test) vs external (2023) performance
-#   7. Reports column mismatches between 2022 and 2023 feature sets
-##############################################################################
 
 rm(list = ls())
 
@@ -24,15 +13,10 @@ library(nnet)
 # 1. LOAD AND PREPARE 2023 (EXTERNAL) DATA
 ##############################################################################
 
-df2023_clean <- readRDS(
-  "C:/Users/Daliy/OneDrive/Documents/Jasgalym/5. Publications/Data/df2023_clean.rds"
-)
-# NOTE: confirm this path actually points to the 2023 file, not 2022 —
-# double-check before running anything downstream of this line.
-
+df2023 <- readRDS(df2023.rds")
 # Apply same LOS class derivation as 2022
-df2023_clean$los_class <- cut(
-  df2023_clean$los,
+df2023$los_class <- cut(
+  df2023$los,
   breaks = c(0, 5, 10, 20, 30, 90),
   labels = c("0", "1", "2", "3", "4"),
   right = FALSE,
@@ -48,71 +32,19 @@ drop_vars <- c(
   "self_discharge"
 )
 
-validation_df <- df2023_clean[
-  , !(names(df2023_clean) %in% drop_vars)
+validation_df <- df2023[
+  , !(names(df2023) %in% drop_vars)
 ]
 
 ##############################################################################
-# 2. LOAD 2022 TRAINING DATA (FOR COLUMN ALIGNMENT AND INTERNAL RESULTS)
+# 2. LOAD 2022 TRAINING DATA 
 ##############################################################################
 
 train_df <- readRDS("train_df.rds")
 test_df  <- readRDS("test_df.rds")
 
 ##############################################################################
-# 3. ALIGN COLUMNS TO MATCH TRAINING FEATURE SET
-##############################################################################
-
-missing_cols <- setdiff(names(train_df), names(validation_df))
-extra_cols   <- setdiff(names(validation_df), names(train_df))
-
-cat("\n")
-cat("=====================================\n")
-cat("Column alignment: 2023 vs 2022 training set\n")
-cat("=====================================\n")
-cat("Missing columns in 2023 (filled with 0):", missing_cols, "\n")
-cat("Extra columns in 2023 (dropped):", extra_cols, "\n")
-
-# Save these for reporting in the manuscript (limitations / supplementary table)
-write.csv(
-  data.frame(missing_columns = missing_cols),
-  "External_validation_missing_columns.csv",
-  row.names = FALSE
-)
-
-write.csv(
-  data.frame(extra_columns = extra_cols),
-  "External_validation_extra_columns.csv",
-  row.names = FALSE
-)
-
-# Report how many 2023 rows are affected by dropped extra columns,
-# in case any extra column represents a non-trivial subgroup (e.g. a
-# new hospital, or a diagnosis/category not seen in 2022 training data)
-if(length(extra_cols) > 0){
-  
-  rows_affected <- sum(rowSums(validation_df[, extra_cols, drop = FALSE] != 0) > 0)
-  
-  cat(
-    "Rows in 2023 data affected by dropped extra columns:",
-    rows_affected, "of", nrow(validation_df),
-    sprintf("(%.2f%%)\n", 100 * rows_affected / nrow(validation_df))
-  )
-  
-}
-
-# Add missing columns as 0
-for(col in missing_cols){
-  if(col != "los_class"){
-    validation_df[[col]] <- 0
-  }
-}
-
-# Remove extra columns and enforce identical column order to train_df
-validation_df <- validation_df[, names(train_df)]
-
-##############################################################################
-# 4. SEPARATE PREDICTORS AND OUTCOME
+# 3. SEPARATE PREDICTORS AND OUTCOME
 ##############################################################################
 
 X_val <- as.matrix(validation_df[, names(validation_df) != "los_class"])
@@ -121,7 +53,7 @@ y_val <- validation_df$los_class
 classes <- levels(train_df$los_class)
 
 ##############################################################################
-# 5. LOAD FINAL TUNED MODELS
+# 4. LOAD FINAL TUNED MODELS
 ##############################################################################
 
 load("RF.RData")   # rf_final
@@ -131,7 +63,7 @@ load("ANN.RData")            # ann_final, preproc_final
 load("MultiLR.RData")  # multinom_model
 
 ##############################################################################
-# 6. GENERATE PREDICTIONS ON EXTERNAL (2023) SET
+# 5. GENERATE PREDICTIONS ON EXTERNAL (2023) SET
 ##############################################################################
 
 ## ---------- Random Forest ----------
@@ -140,6 +72,7 @@ prob_rf_ext <- predict(rf_final, data = X_val, type = "response")$predictions
 colnames(prob_rf_ext) <- classes
 pred_rf_ext <- factor(classes[max.col(prob_rf_ext)], levels = classes)## ---------- XGBoost ----------
 
+## ---------- XGBoost ----------
 prob_xgb_ext <- predict(xgb_final, X_val)
 prob_xgb_ext <- matrix(prob_xgb_ext, ncol = length(classes), byrow = TRUE)
 colnames(prob_xgb_ext) <- classes
@@ -152,7 +85,7 @@ prob_lgb_ext <- matrix(prob_lgb_ext, ncol = length(classes), byrow = TRUE)
 colnames(prob_lgb_ext) <- classes
 pred_lgb_ext <- factor(classes[max.col(prob_lgb_ext)], levels = classes)
 
-## ---------- ANN (requires SAME scaling as training — critical) ----------
+## ---------- ANN ----------
 
 X_val_scaled <- predict(preproc_final, X_val)
 prob_ann_ext <- predict(ann_final, X_val_scaled, type = "raw")
@@ -166,7 +99,7 @@ colnames(prob_multinom_ext) <- classes
 pred_multinom_ext <- factor(classes[max.col(prob_multinom_ext)], levels = classes)
 
 ##############################################################################
-# 7. MODEL REGISTRY (EXTERNAL SET)
+# 6. MODEL REGISTRY (EXTERNAL SET)
 ##############################################################################
 
 models_ext <- list(
@@ -178,7 +111,7 @@ models_ext <- list(
 )
 
 ##############################################################################
-# 8. CLASS-SPECIFIC METRICS WITH 95% BOOTSTRAP CI — EXTERNAL SET
+# 7. CLASS-SPECIFIC METRICS WITH 95% BOOTSTRAP CI — EXTERNAL SET
 ##############################################################################
 
 set.seed(123)
@@ -366,7 +299,7 @@ write.csv(
 )
 
 ##############################################################################
-# 9. OVERALL METRICS PER MODEL — EXTERNAL SET
+# 8. OVERALL METRICS PER MODEL — EXTERNAL SET
 ##############################################################################
 
 log_loss <- function(actual, predicted_probs, eps = 1e-15){
@@ -432,7 +365,7 @@ write.csv(
 )
 
 ##############################################################################
-# 10. INTERNAL (2022 TEST) vs EXTERNAL (2023) PERFORMANCE COMPARISON
+# 9. INTERNAL (2022 TEST) vs EXTERNAL (2023) PERFORMANCE COMPARISON
 ##############################################################################
 # Requires the internal test-set overall metrics table to already exist
 # (e.g. produced by evaluation_bootstrap_CI.R / overall metrics scripts
@@ -464,7 +397,7 @@ write.csv(
 )
 
 ##############################################################################
-# 11. SAVE ALL EXTERNAL VALIDATION OUTPUTS
+# 10. SAVE ALL EXTERNAL VALIDATION OUTPUTS
 ##############################################################################
 
 save(
