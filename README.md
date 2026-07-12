@@ -33,6 +33,11 @@ Access to the real data is restricted due to data privacy and governance require
 - No missing or implausible values were identified for the outcome variable, as the hospital registry system does not permit incomplete inpatient spells at the point of registration.
 - LOS was categorised into five clinically meaningful groups to account for its right-skewed distribution:
 
+<p align="center">
+  <img src="Figures/Picture1.png" width="600">
+</p>
+
+
   | Class | Range (days) | Clinical interpretation |
   |---|---|---|
   | 1 | 0–4 | Short, uncomplicated acute admissions |
