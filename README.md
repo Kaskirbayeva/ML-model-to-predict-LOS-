@@ -12,8 +12,6 @@ This project addresses this gap by developing and comparing multiple ML approach
 
 
 ## Data
-**Data Notice:** This repository contains R scripts and code only. Any example or `data/` files included here are synthetic placeholder data provided solely to illustrate the expected structure and format for the pipeline to run, they do not represent real patient data and must not be used for any clinical, epidemiological, or research inference. The real administrative dataset used in this study is not publicly available and must be officially requested from the data holder, the Ministry of Health of the Republic of Kazakhstan.
-
 
 - **Time period:** 2022–2023 
 - **Unit of analysis:** Hospital admission episode
@@ -26,6 +24,9 @@ This project addresses this gap by developing and comparing multiple ML approach
   - Socioeconomic and insurance status
   - Hospital organisational characteristics
 
+## Data Availability
+
+Access to the real data is restricted due to data privacy and governance requirements, and must be formally requested from the Ministry of Health, subject to their data-sharing policies and any required institutional/ethical approvals. Researchers interested in accessing the underlying data should contact the data holder or the corresponding author for guidance on the request procedure.
 
 ### Outcome Variable: LOS Derivation and Categorisation
 - LOS was derived automatically from routinely collected administrative data, defined as the number of days between the date of admission and the date of discharge, death, or referral.
