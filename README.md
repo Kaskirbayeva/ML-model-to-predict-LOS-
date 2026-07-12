@@ -192,6 +192,7 @@ install.packages(c(
 
 ## Repository Structure
 project/
+
 ├── mapping.R                       # Data cleaning and feature engineering
 
 ├── 01_data_preparation.R           # Train/test split and preprocessing
