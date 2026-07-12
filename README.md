@@ -197,7 +197,7 @@ install.packages(c(
 ```
 project/
 ├── README.md                         # Project documentation
-├── Data/                             # Synthetic placeholder data only — see Data/README.md
+├── Data/                             # Synthetic placeholder data only (see Data/README.md)
 │   ├── README.md                     # Data notice: real data must be requested from the Ministry of Health
 │   ├── df2022.rds                    # Synthetic placeholder dataset (2022 structure)
 │   └── df2023.rds                    # Synthetic placeholder dataset (2023 structure)
@@ -208,7 +208,7 @@ project/
 │   ├── 04_LightGBM_tuning.R          # LightGBM hyperparameter tuning and final model
 │   ├── 05_ANN.R                      # ANN hyperparameter tuning and final model
 │   ├── 06_MultinomialLR.R            # Multinomial logistic regression model
-│   ├── 07_External_Validation_2023.R # Multinomial logistic regression model
+│   ├── 07_External_Validation_2023.R # External validation on 2023 data
 │   └── evaluation_bootstrap_CI.R     # Class-specific metrics with 95% bootstrap CIs
 └── Figures/                          # Output plots and visualisations
 ```
