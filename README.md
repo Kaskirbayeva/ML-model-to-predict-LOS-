@@ -24,7 +24,7 @@ This project addresses this gap by developing and comparing multiple ML approach
   - Socioeconomic and insurance status
   - Hospital organisational characteristics
 
-## Data Availability
+### Data Availability
 
 Access to the real data is restricted due to data privacy and governance requirements, and must be formally requested from the Ministry of Health, subject to their data-sharing policies and any required institutional/ethical approvals. Researchers interested in accessing the underlying data should contact the data holder or the corresponding author for guidance on the request procedure.
 
