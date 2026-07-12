@@ -1,5 +1,5 @@
 ##############################################################################
-# 04_ANN_tuning.R
+# ANN
 # ANN (nnet) Hyperparameter Optimization and Final Model
 ##############################################################################
 
@@ -42,8 +42,7 @@ X_tune_raw <- model.matrix(
   data = train_tune
 )
 
-# Center/scale on the tuning sample; the SAME scaling object is reused
-# below on train_df/test_df so all sets are transformed consistently.
+
 preproc_tune <- preProcess(
   X_tune_raw,
   method = c("center", "scale")
@@ -296,16 +295,5 @@ print(cm_ann)
 ##############################################################################
 # SAVE OUTPUTS
 ##############################################################################
-
-saveRDS(
-  ann_final,
-  "ann_final.rds"
-)
-
-saveRDS(
-  results_ann,
-  "ann_tuning_results.rds"
-)
-
 
 save.image(file = "ANN.RData")
