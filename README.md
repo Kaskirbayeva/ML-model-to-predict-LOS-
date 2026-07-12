@@ -11,6 +11,7 @@ This project addresses this gap by developing and comparing multiple ML approach
 
 
 ## Data
+**Data Notice:** This repository contains R scripts and code only. Any example or `data/` files included here are **synthetic placeholder data** provided solely to illustrate the expected structure and format for the pipeline to run — they do **not** represent real patient data and must not be used for any clinical, epidemiological, or research inference. The real administrative dataset used in this study is not publicly available and must be **officially requested from the data holder, the Ministry of Health of the Republic of Kazakhstan**.
 
 The analysis is based on anonymised inpatient administrative records from hospital admissions.
 
