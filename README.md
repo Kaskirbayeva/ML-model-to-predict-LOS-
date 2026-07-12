@@ -42,14 +42,14 @@ This project addresses this gap by developing and comparing multiple ML approach
 
 ### Missing Data Handling
 - Missingness in predictor variables was minimal (< 0.03%) and was not systematically related to observed characteristics at either the patient or hospital level; affected observations were omitted.
-- **Admission outcome imputation** followed a rule-based procedure:
+- Admission outcome imputation followed a rule-based procedure:
   - Where the recorded treatment outcome indicated death, the admission outcome was deterministically assigned as death.
   - For remaining observations with missing admission outcomes, cases were redistributed across non-death outcome categories in proportion to their observed distribution in the complete data.
 
 
 ### Train/Test Split and External Validation
-- The **2022 dataset** was randomly partitioned into **training (80%)** and **test (20%)** subsets, used for model development and internal evaluation, respectively.
-- The independent **2023 dataset** was reserved exclusively for **external temporal validation** and was not used at any stage of model development or hyperparameter tuning, ensuring an unbiased estimate of temporal generalisability.
+- The 2022 dataset was randomly partitioned into training (80%) and test (20%) subsets, used for model development and internal evaluation, respectively.
+- The independent 2023 dataset was reserved exclusively for external temporal validation and was not used at any stage of model development or hyperparameter tuning, ensuring an unbiased estimate of temporal generalisability.
 
 Due to data privacy restrictions, raw data are not publicly available. Only derived and anonymised analytical datasets are used in this repository.
 
