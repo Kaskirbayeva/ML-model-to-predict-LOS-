@@ -193,26 +193,17 @@ install.packages(c(
 ```
 
 ## Repository Structure
+
+```
 project/
-
-├── mapping.R                       # Data cleaning and feature engineering
-
-├── 01_data_preparation.R           # Train/test split and preprocessing
-
-├── 02_RandomForest_tuning.R        # Random Forest hyperparameter tuning and final model
-
-├── 03_XGBoost_tuning.R             # XGBoost hyperparameter tuning and final model
-
-├── 04_LightGBM_tuning.R            # LightGBM hyperparameter tuning and final model
-
-├── 05_ANN_tuning.R                 # ANN hyperparameter tuning and final model
-
-├── 06_MultinomialLR.R              # Multinomial logistic regression model
-
-├── evaluation_bootstrap_CI.R       # Class-specific metrics with 95% bootstrap CIs
-
 ├── README.md                       # Project documentation
-
-├── data/                           # Example or processed datasets (if shareable)
-
-└── figures/                        # Output plots and visualisations
+├── Model/                          # All analysis and modelling scripts
+│   ├── 01_data_preparation.R       # Train/test split and preprocessing
+│   ├── 02_RF_tuning.R              # Random Forest hyperparameter tuning and final model
+│   ├── 03_XGBoost_tuning.R         # XGBoost hyperparameter tuning and final model
+│   ├── 04_LightGBM_tuning.R        # LightGBM hyperparameter tuning and final model
+│   ├── 05_ANN.R                    # ANN hyperparameter tuning and final model
+│   ├── 06_MultinomialLR.R          # Multinomial logistic regression model
+│   └── evaluation_bootstrap_CI.R   # Class-specific metrics with 95% bootstrap CIs
+└── Figures/                        # Output plots and visualisations
+```
