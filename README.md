@@ -196,18 +196,19 @@ install.packages(c(
 
 ```
 project/
-├── README.md                       # Project documentation
-├── Data/                           # Synthetic placeholder data only — see Data/README.md
-│   ├── README.md                   # Data notice: real data must be requested from the Ministry of Health
-│   ├── df2022.rds                  # Synthetic placeholder dataset (2022 structure)
-│   └── df2023.rds                  # Synthetic placeholder dataset (2023 structure)
-├── Model/                          # All analysis and modelling scripts
-│   ├── 01_data_preparation.R       # Train/test split and preprocessing
-│   ├── 02_RF_tuning.R              # Random Forest hyperparameter tuning and final model
-│   ├── 03_XGBoost_tuning.R         # XGBoost hyperparameter tuning and final model
-│   ├── 04_LightGBM_tuning.R        # LightGBM hyperparameter tuning and final model
-│   ├── 05_ANN.R                    # ANN hyperparameter tuning and final model
-│   ├── 06_MultinomialLR.R          # Multinomial logistic regression model
-│   └── evaluation_bootstrap_CI.R   # Class-specific metrics with 95% bootstrap CIs
-└── Figures/                        # Output plots and visualisations
+├── README.md                         # Project documentation
+├── Data/                             # Synthetic placeholder data only — see Data/README.md
+│   ├── README.md                     # Data notice: real data must be requested from the Ministry of Health
+│   ├── df2022.rds                    # Synthetic placeholder dataset (2022 structure)
+│   └── df2023.rds                    # Synthetic placeholder dataset (2023 structure)
+├── Model/                            # All analysis and modelling scripts
+│   ├── 01_data_preparation.R         # Train/test split and preprocessing
+│   ├── 02_RF_tuning.R                # Random Forest hyperparameter tuning and final model
+│   ├── 03_XGBoost_tuning.R           # XGBoost hyperparameter tuning and final model
+│   ├── 04_LightGBM_tuning.R          # LightGBM hyperparameter tuning and final model
+│   ├── 05_ANN.R                      # ANN hyperparameter tuning and final model
+│   ├── 06_MultinomialLR.R            # Multinomial logistic regression model
+│   ├── 07_External_Validation_2023.R # Multinomial logistic regression model
+│   └── evaluation_bootstrap_CI.R     # Class-specific metrics with 95% bootstrap CIs
+└── Figures/                          # Output plots and visualisations
 ```
