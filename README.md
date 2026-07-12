@@ -14,7 +14,7 @@ This project addresses this gap by developing and comparing multiple ML approach
 **Data Notice:** This repository contains R scripts and code only. Any example or `data/` files included here are synthetic placeholder data provided solely to illustrate the expected structure and format for the pipeline to run, they do not represent real patient data and must not be used for any clinical, epidemiological, or research inference. The real administrative dataset used in this study is not publicly available and must be officially requested from the data holder, the Ministry of Health of the Republic of Kazakhstan.
 
 
-- **Time period:** 2018–2022 (with extended processing for 2023 in a supplementary pipeline)
+- **Time period:** 2022–2023 
 - **Unit of analysis:** Hospital admission episode
 - **Outcome variable:** Length of stay (LOS), modelled as a categorical class (5 levels; see *Outcome Variable Categorisation* below)
 - **Cohort restriction:** The dataset was restricted to observations reimbursed under the Mandatory Social Health Insurance (MSHI) scheme
