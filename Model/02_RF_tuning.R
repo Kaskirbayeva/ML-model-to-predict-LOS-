@@ -16,8 +16,8 @@ library(ranger)
 # LOAD DATA
 ##############################################################################
 
-train_df <- readRDS("train_df.rds")
-test_df  <- readRDS("test_df.rds")
+train_df <- readRDS("synthetic_train.rds")
+test_df  <- readRDS("synthetic_test.rds.rds")
 
 ##############################################################################
 # VERIFY DATASET
