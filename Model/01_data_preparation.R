@@ -384,10 +384,12 @@ train_index <- createDataPartition(
 train_df <- model_df[train_index, ]
 test_df  <- model_df[-train_index, ]
 
+synthetic_train <- train_df
+synthetic_test <- test_df
 ############################################################
 # SAVE DATAFRAMES
 ############################################################
 
-saveRDS(train_df,"train_df.rds")
-saveRDS(test_df,"test_df.rds")
+saveRDS(synthetic_train ,"synthetic_train.rds")
+saveRDS(synthetic_test,"synthetic_test.rds")
 
