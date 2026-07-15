@@ -1,7 +1,24 @@
 
-############################################################
-# PREPARE HOSPITAL ADMISSIONS DATA: 2022-2023
-############################################################
+##############################################################################
+# 01_data_preparation.R
+# Data Preparation Pipeline (Synthetic Demonstration Version)
+##############################################################################
+#
+# This script demonstrates the data preparation pipeline applied to the
+# analytic dataset, using a synthetic dataset generated to approximate the
+# distributional properties of the original administrative data.
+#
+# The synthetic data preserve the structure, variable types, and
+# distributions of the real dataset closely enough to illustrate how the
+# pipeline runs end-to-end, but they do not contain any real patient
+# records and must not be used for clinical or research inference.
+#
+# The procedure used to generate this synthetic dataset is not included in
+# this repository, as it falls outside the scope of the modelling pipeline
+# presented here.
+#
+##############################################################################
+
 # FUNCTION FOR DATA PREPARATION
 ############################################################
 
