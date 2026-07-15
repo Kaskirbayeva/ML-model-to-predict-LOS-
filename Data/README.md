@@ -2,7 +2,7 @@
 
 ## Data Notice
 
-This directory contains **synthetic placeholder data only**. The files included here were generated to approximate the structure, variable types, and distributional properties of the original administrative dataset used in this study, solely to demonstrate how the modelling pipeline runs end-to-end. They do **not** contain real patient records and must not be used for any clinical, epidemiological, or research inference.
+This directory contains synthetic placeholder data only. The files included here were generated to approximate the structure, variable types, and distributional properties of the original administrative dataset used in this study, solely to demonstrate how the modelling pipeline runs end-to-end. They do **not** contain real patient records and must not be used for any clinical, epidemiological, or research inference.
 
 The procedure used to generate these synthetic datasets is not included in this repository, as it falls outside the scope of the modelling pipeline presented here.
 
