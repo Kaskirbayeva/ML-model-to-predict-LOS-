@@ -53,31 +53,18 @@ The 2022 dataset was randomly partitioned into training (80%) and test (20%) sub
 A description of the overall distribution of length of stay, including measures of central tendency and dispersion (mean, median, interquartile range) and the relative frequency of each LOS class, would be reported here, alongside a histogram or density plot of the raw LOS distribution and a bar chart of class frequencies.
 
 <p align="center">
-  <img src="Figures/DescStats_LOS_Distribution.png" width="600">
+  <img src="Figures/Picture3.png" width="600">
 </p>
 
-### Demographic Characteristics of the Study Cohort
 
-A summary of the cohort's demographic composition, including the distribution of patients across the five age strata and by sex, would be reported here, together with any observed association between demographic characteristics and LOS class.
 
 <p align="center">
-  <img src="Figures/DescStats_Demographics.png" width="600">
+  <img src="Figures/Picture4.png" width="600">
 </p>
 
-### Admission and Clinical Characteristics
-
-A summary of admission type (planned versus emergency), admission outcome, complication status, and the distribution of diagnoses across ICD-10 chapters would be reported here, illustrating the clinical composition of the cohort and its relationship to LOS.
 
 <p align="center">
-  <img src="Figures/DescStats_AdmissionClinical.png" width="600">
-</p>
-
-### Hospital-Level Characteristics
-
-A summary of the distribution of admissions across hospital level (regional, city, rural, republican), ownership type, and geographical region would be reported here, providing context on the institutional composition of the dataset.
-
-<p align="center">
-  <img src="Figures/DescStats_HospitalLevel.png" width="600">
+  <img src="Figures/Picture5.png" width="600">
 </p>
 
 ## Feature Engineering
