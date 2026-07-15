@@ -278,8 +278,8 @@ prepare_hospital_data <- function(df, sur_merged) {
 # APPLY FUNCTION FOR DATA PREPARATION
 ############################################################
 
-df2022 <- prepare_hospital_data(df2022_original, merged)
-df2023 <- prepare_hospital_data(df2023_original, merged)
+df2022 <- prepare_hospital_data(df2022_synthetic, merged)
+df2023 <- prepare_hospital_data(df2023_synthetic, merged)
 
 ##############################################################################
 # STEP 1: CREATE GLOBAL FEATURE SPACE
