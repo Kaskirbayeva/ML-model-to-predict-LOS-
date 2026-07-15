@@ -162,10 +162,9 @@ project/
 ├── README.md                         # Project documentation
 ├── Data/                             # Synthetic placeholder data only (see Data/README.md)
 │   ├── README.md                     # Data notice
-│   ├── synthetic_train.rds           # Synthetic dataset (2022)
+│   ├── synthetic_external2023.rds    # Synthetic dataset (2022)
 │   ├── synthetic_test.rds            # Synthetic dataset (2022)
-│   ├── synthetic_external2023.rds    # Synthetic dataset (2023)
-│   └── df2023.rds                    # Synthetic placeholder dataset (2023 structure)
+│   └── synthetic_train.rds           # Synthetic dataset (2023)
 ├── Model/                            # All analysis and modelling scripts
 │   ├── 01_data_preparation.R         # Train/test split and preprocessing
 │   ├── 02_RF_tuning.R                # Random Forest hyperparameter tuning and final model
