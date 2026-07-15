@@ -46,11 +46,7 @@ The 2022 dataset was randomly partitioned into training (80%) and test (20%) sub
 
 ## Descriptive Statistics
 
-*This section summarises the analytic cohort prior to modelling. Populate each subsection below with the corresponding summary statistics and figures once generated from the analytic dataset (placeholders indicate suggested content and figure locations).*
-
 ### Distribution of Length of Stay
-
-A description of the overall distribution of length of stay, including measures of central tendency and dispersion (mean, median, interquartile range) and the relative frequency of each LOS class, would be reported here, alongside a histogram or density plot of the raw LOS distribution and a bar chart of class frequencies.
 
 <p align="center">
   <img src="Figures/Picture3.png" width="600">
