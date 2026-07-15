@@ -10,7 +10,7 @@ library(scales)
 # Create LOS classes
 #----------------------------------------------------------
 
-df2022_clean <- df2022_clean %>%
+df2022 <- df2022 %>%
   mutate(
     LOS_class = cut(
       los,
@@ -21,7 +21,7 @@ df2022_clean <- df2022_clean %>%
     )
   )
 
-df2023_clean <- df2023_clean %>%
+df2023 <- df2023 %>%
   mutate(
     LOS_class = cut(
       los,
@@ -36,11 +36,11 @@ df2023_clean <- df2023_clean %>%
 # Count observations
 #----------------------------------------------------------
 
-dist2022 <- df2022_clean %>%
+dist2022 <- df2022 %>%
   count(LOS_class) %>%
   mutate(Dataset = "2022")
 
-dist2023 <- df2023_clean %>%
+dist2023 <- df2023 %>%
   count(LOS_class) %>%
   mutate(Dataset = "2023")
 
@@ -101,7 +101,7 @@ p
 
 library(ggplot2)
 
-ppp <- ggplot(df2023_clean, aes(x = los)) +
+ppp <- ggplot(df2023, aes(x = los)) +
   
   geom_histogram(
     binwidth = 0.5,
@@ -151,7 +151,7 @@ library(dplyr)
 
 library(dplyr)
 
-df_plot <- df2022_clean %>%
+df_plot <- df2022 %>%
   mutate(
     admission_outcome = case_when(
       death == 1 ~ "Death",
@@ -229,7 +229,7 @@ library(ggplot2)
 # Reconstruct age groups
 #------------------------------------------------------------
 
-df_age <- df2022_clean %>%
+df_age <- df2022 %>%
   mutate(
     AgeGroup = case_when(
       child == 1         ~ "0–4",
