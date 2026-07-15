@@ -1,5 +1,9 @@
 ##############################################################################
 # 04_LightGBM_tuning.R
+# LightGBM
+# Hyperparameter tuning + Final model
+# For demonstration purposes, synthetic data approximating the distributional 
+# properties of the original administrative dataset is used in place of the real data.
 ##############################################################################
 
 library(lightgbm)
@@ -9,8 +13,8 @@ library(caret)
 # LOAD DATA
 ##############################################################################
 
-train_df <- readRDS("train_df.rds")
-test_df  <- readRDS("test_df.rds")
+train_df <- readRDS("synthetic_train.rds")
+test_df  <- readRDS("synthetic_test.rds.rds")
 
 ##############################################################################
 # 10% TUNING SAMPLE
