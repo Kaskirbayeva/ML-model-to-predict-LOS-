@@ -1,23 +1,15 @@
 ##############################################################################
-# CATBOOST MULTICLASS MODEL FOR LENGTH OF STAY (LOS) CLASSIFICATION
-#
-# Objective:
-# Train and evaluate a CatBoost multiclass classifier to predict LOS categories.
-#
-# Workflow:
-# 1. Define hyperparameter grid
-# 2. Perform 5-fold cross-validation tuning
-# 3. Select best hyperparameters based on MultiClass log loss
-# 4. Train final CatBoost model
-# 5. Generate class probabilities and predicted classes
-# 6. Evaluate model performance using multiple metrics
-#
-# LOS classes:
-# CatBoost requires class labels starting from 0.
-# Therefore, factor levels are converted from 1,2,3,... to 0,1,2,...
+# 07_CatBoost.R
+# CATBOOST MULTICLASS MODEL 
+# Hyperparameter tuning + Final model
+# For demonstration purposes, synthetic data approximating the distributional 
+# properties of the original administrative dataset is used in place of the real data.
+##############################################################################
+# LOAD DATA
 ##############################################################################
 
-
+train_df <- readRDS("synthetic_train.rds")
+test_df  <- readRDS("synthetic_test.rds.rds")
 ##############################################################################
 # 1. DEFINE HYPERPARAMETER GRID FOR MODEL TUNING
 ##############################################################################
@@ -87,8 +79,6 @@ train_pool <- catboost.load_pool(
   
 )
 
-
-
 ##############################################################################
 # 3. HYPERPARAMETER TUNING USING 5-FOLD CROSS-VALIDATION
 ##############################################################################
@@ -107,8 +97,7 @@ for(i in 1:nrow(cat_grid)){
     nrow(cat_grid),
     "\n"
   )
-  
-  
+    
   # Define CatBoost training parameters
   params <- list(
     
@@ -205,8 +194,6 @@ for(i in 1:nrow(cat_grid)){
   
 }
 
-
-
 ##############################################################################
 # 4. SELECT BEST MODEL PARAMETERS
 ##############################################################################
@@ -220,8 +207,6 @@ best_row <- dplyr::slice_min(
 )
 
 best_row
-
-
 
 ##############################################################################
 # 5. TRAIN FINAL CATBOOST MODEL
@@ -292,8 +277,6 @@ cat_final <- catboost.train(
   
 )
 
-
-
 ##############################################################################
 # 6. GENERATE PREDICTED PROBABILITIES
 ##############################################################################
@@ -346,8 +329,6 @@ pred_cat <- factor(
   
 )
 
-
-
 ##############################################################################
 # 8. CONFUSION MATRIX AND OVERALL PERFORMANCE
 ##############################################################################
@@ -373,8 +354,6 @@ print(cm_cat)
 accuracy_cat <- cm_cat$overall["Accuracy"]
 
 kappa_cat <- cm_cat$overall["Kappa"]
-
-
 
 ##############################################################################
 # 10. MACRO-AVERAGED PRECISION, RECALL AND F1 SCORE
@@ -418,8 +397,6 @@ macro_recall <- mean(recall)
 
 macro_f1 <- mean(f1)
 
-
-
 ##############################################################################
 # 11. MULTICLASS LOG LOSS
 ##############################################################################
@@ -450,8 +427,6 @@ logloss <- MLmetrics::MultiLogLoss(
   y_true = actual_matrix
 )
 
-
-
 ##############################################################################
 # 12. RMSE OF CLASS PREDICTIONS
 ##############################################################################
@@ -464,8 +439,6 @@ rmse <- sqrt(
     )^2
   )
 )
-
-
 
 ##############################################################################
 # 13. FINAL PERFORMANCE TABLE
@@ -493,8 +466,6 @@ results <- data.frame(
 
 
 print(results)
-
-
 
 ##############################################################################
 # 14. ADDITIONAL CHECK OF MACRO METRICS FROM CARET
@@ -525,8 +496,6 @@ cat(
   "\nMacro F1        =", round(macro_f1, 3), 
   "\n"
 )
-
-
 
 ##############################################################################
 # 15. MANUAL VERIFICATION OF LOG LOSS
@@ -586,8 +555,6 @@ logloss_cat <- -mean(
 
 
 logloss_cat
-
-
 
 ##############################################################################
 # 16. SAVE COMPLETE R ENVIRONMENT
