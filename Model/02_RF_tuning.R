@@ -1,6 +1,9 @@
 ##############################################################################
+# 02_RF_tuning.R
 # RANDOM FOREST
 # Hyperparameter tuning + Final model
+# For demonstration purposes, synthetic data approximating the distributional 
+# properties of the original administrative dataset is used in place of the real data.
 ##############################################################################
 
 rm(list = ls())
