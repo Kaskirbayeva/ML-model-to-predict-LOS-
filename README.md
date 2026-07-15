@@ -24,9 +24,6 @@ Access to the real data is restricted due to data privacy and governance require
 
 Length of stay was derived automatically from routinely collected administrative data and defined as the number of days between the date of admission and the date of discharge, death, or referral. No missing or implausible values were identified for the outcome variable, as the hospital registry system does not permit incomplete inpatient spells at the point of registration. To account for its right-skewed distribution, LOS was categorised into five clinically meaningful groups.
 
-<p align="center">
-  <img src="Figures/Picture1.png" width="600">
-</p>
 
 | Class | Range (days) | Clinical interpretation |
 |---|---|---|
@@ -107,7 +104,7 @@ All engineered feature blocks were merged at the patient-episode level using a u
 
 ### Input Files
 
-The final feature-engineered dataset used for model development, comprising the training and test split, is stored as `synthetic_train.rds` and `synthetic_test.rds, while the corresponding dataset reserved for external temporal validation is stored as `synthetic_external2023.rds`.
+The final feature-engineered dataset used for model development, comprising the training and test split, is stored as `synthetic_train.rds` and `synthetic_test.rds`, while the corresponding dataset reserved for external temporal validation is stored as `synthetic_external2023.rds`.
 
 ## Methodology
 
