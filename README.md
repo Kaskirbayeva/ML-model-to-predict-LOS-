@@ -162,7 +162,9 @@ project/
 ├── README.md                         # Project documentation
 ├── Data/                             # Synthetic placeholder data only (see Data/README.md)
 │   ├── README.md                     # Data notice
-│   ├── df2022.rds                    # Synthetic placeholder dataset (2022 structure)
+│   ├── synthetic_train.rds           # Synthetic dataset (2022)
+│   ├── synthetic_test.rds            # Synthetic dataset (2022)
+│   ├── synthetic_external2023.rds    # Synthetic dataset (2023)
 │   └── df2023.rds                    # Synthetic placeholder dataset (2023 structure)
 ├── Model/                            # All analysis and modelling scripts
 │   ├── 01_data_preparation.R         # Train/test split and preprocessing
@@ -171,7 +173,8 @@ project/
 │   ├── 04_LightGBM_tuning.R          # LightGBM hyperparameter tuning and final model
 │   ├── 05_ANN.R                      # ANN hyperparameter tuning and final model
 │   ├── 06_MultinomialLR.R            # Multinomial logistic regression model
-│   ├── 07_External_Validation_2023.R # External validation on 2023 data
+│   ├── 07_CatBoost.R                 # CatBoost
+│   ├── 08_External_Validation_2023.R # External validation on 2023 data
 │   └── evaluation_bootstrap_CI.R     # Class-specific metrics with 95% bootstrap CIs
 └── Figures/                          # Output plots and visualisations
 ```
