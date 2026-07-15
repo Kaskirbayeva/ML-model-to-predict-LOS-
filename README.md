@@ -107,7 +107,7 @@ All engineered feature blocks were merged at the patient-episode level using a u
 
 ### Input Files
 
-The final feature-engineered dataset used for model development, comprising the training and test split, is stored as `df2022.rds`, while the corresponding dataset reserved for external temporal validation is stored as `df2023.rds`.
+The final feature-engineered dataset used for model development, comprising the training and test split, is stored as `synthetic_train.rds` and `synthetic_test.rds, while the corresponding dataset reserved for external temporal validation is stored as `synthetic_external2023.rds`.
 
 ## Methodology
 
